@@ -433,7 +433,7 @@ private:
 		}
 
 		try {
-			std::stringstream os;
+			std::stringstream ss;
 			while (!p.is_done())
 			{
 				char buf[8192]{};
@@ -448,10 +448,10 @@ private:
 					return fail(ec, "read body");
 				}
 
-				os.write(buf, sizeof(buf) - p.get().body().size);
+				ss.write(buf, sizeof(buf) - p.get().body().size);
 			}
 
-			auto padding_json = simdjson::padded_string(os.str());
+			auto padding_json = simdjson::padded_string(ss.str());
 			simdjson::ondemand::parser parser;
 			auto doc = parser.iterate(padding_json);
 			auto results = std::vector<resultInfo>();
@@ -501,34 +501,34 @@ private:
 				}
 				else {
 					auto i = inputVariantInfo();
-					i.Chr = e["Chr"].get_string().value();
-					i.Start = e["Start"].get_string().value();
-					i.Ref = e["Ref"].get_string().value();
-					i.Alt = e["Alt"].get_string().value();
-					i.Gene = e["Gene"].get_string().value();
-					i.Otherinfo1 = e["Otherinfo1"].get_string().value();
-					i.Otherinfo2 = e["Otherinfo2"].get_string().value();
-					i.Otherinfo3 = e["Otherinfo3"].get_string().value();
-					i.MaxAlleleFreq = e["MaxAlleleFreq"].get_string().value();
-					i.SIFT = e["SIFT"].get_string().value();
-					i.PolyphenHDIV = e["PolyphenHDIV"].get_string().value();
-					i.PolyphenHVAR = e["PolyphenHVAR"].get_string().value();
-					i.LRT = e["LRT"].get_string().value();
-					i.MutationTaster = e["MutationTaster"].get_string().value();
-					i.MutationAssessor = e["MutationAssessor"].get_string().value();
-					i.FATHMM = e["FATHMM"].get_string().value();
-					i.PROVEAN = e["PROVEAN"].get_string().value();
-					i.MetaSVM = e["MetaSVM"].get_string().value();
-					i.MetaLR = e["MetaLR"].get_string().value();
-					i.MCAP = e["MCAP"].get_string().value();
-					i.CADD = e["CADD"].get_string().value();
-					i.fathmmMKL = e["fathmmMKL"].get_string().value();
-					i.Inheritance = e["Inheritance"].get_string().value();
-					i.Consequence = e["Consequence"].get_string().value();
-					i.MaxEntScan = e["MaxEntScan"].get_string().value();
-					i.FuncRefgene = e["FuncRefgene"].get_string().value();
-					i.HGMD = e["HGMD"].get_string().value();
-					i.ClinVar = e["ClinVar"].get_string().value();
+					i.Chr = e["Chr"].is_null() ? "" : e["Chr"].get_string().value();
+					i.Start = e["Start"].is_null() ? "" : e["Start"].get_string().value();
+					i.Ref = e["Ref"].is_null() ? "" : e["Ref"].get_string().value();
+					i.Alt = e["Alt"].is_null() ? "" : e["Alt"].get_string().value();
+					i.Gene = e["Gene"].is_null() ? "" : e["Gene"].get_string().value();
+					i.Otherinfo1 = e["Otherinfo1"].is_null() ? "" : e["Otherinfo1"].get_string().value();
+					i.Otherinfo2 = e["Otherinfo2"].is_null() ? "" : e["Otherinfo2"].get_string().value();
+					i.Otherinfo3 = e["Otherinfo3"].is_null() ? "" : e["Otherinfo3"].get_string().value();
+					i.MaxAlleleFreq = e["MaxAlleleFreq"].is_null() ? "" : e["MaxAlleleFreq"].get_string().value();
+					i.SIFT = e["SIFT"].is_null() ? "" : e["SIFT"].get_string().value();
+					i.PolyphenHDIV = e["PolyphenHDIV"].is_null() ? "" : e["PolyphenHDIV"].get_string().value();
+					i.PolyphenHVAR = e["PolyphenHVAR"].is_null() ? "" : e["PolyphenHVAR"].get_string().value();
+					i.LRT = e["LRT"].is_null() ? "" : e["LRT"].get_string().value();
+					i.MutationTaster = e["MutationTaster"].is_null() ? "" : e["MutationTaster"].get_string().value();
+					i.MutationAssessor = e["MutationAssessor"].is_null() ? "" : e["MutationAssessor"].get_string().value();
+					i.FATHMM = e["FATHMM"].is_null() ? "" : e["FATHMM"].get_string().value();
+					i.PROVEAN = e["PROVEAN"].is_null() ? "" : e["PROVEAN"].get_string().value();
+					i.MetaSVM = e["MetaSVM"].is_null() ? "" : e["MetaSVM"].get_string().value();
+					i.MetaLR = e["MetaLR"].is_null() ? "" : e["MetaLR"].get_string().value();
+					i.MCAP = e["MCAP"].is_null() ? "" : e["MCAP"].get_string().value();
+					i.CADD = e["CADD"].is_null() ? "" : e["CADD"].get_string().value();
+					i.fathmmMKL = e["fathmmMKL"].is_null() ? "" : e["fathmmMKL"].get_string().value();
+					i.Inheritance = e["Inheritance"].is_null() ? "" : e["Inheritance"].get_string().value();
+					i.Consequence = e["Consequence"].is_null() ? "" : e["Consequence"].get_string().value();
+					i.MaxEntScan = e["MaxEntScan"].is_null() ? "" : e["MaxEntScan"].get_string().value();
+					i.FuncRefgene = e["FuncRefgene"].is_null() ? "" : e["FuncRefgene"].get_string().value();
+					i.HGMD = e["HGMD"].is_null() ? "" : e["HGMD"].get_string().value();
+					i.ClinVar = e["ClinVar"].is_null() ? "" : e["ClinVar"].get_string().value();
 
 					auto v = variantInfo{};
 
